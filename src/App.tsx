@@ -1,6 +1,9 @@
-import "./App.css";
-import { Category, Home, Layout, NotFound, Product } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import { Category, Home, Layout, NotFound, Product } from "./pages";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./App.css";
+
+const queryClient = new QueryClient();
 
 function App() {
   const routes = createBrowserRouter([
@@ -22,13 +25,17 @@ function App() {
         },
         {
           path: "*",
-          Component: NotFound ,
-        }
+          Component: NotFound,
+        },
       ],
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={routes} />;
+    </QueryClientProvider>
+  );
 }
 
 export default App;
