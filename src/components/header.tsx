@@ -1,8 +1,17 @@
+import HeaderTop from "./header-top"
+
+
+
+
 
 
 const Header = () => {
   return (
-    <div>Header</div>
+    <header>
+      <div className="container">
+        <HeaderTop/>
+      </div>
+    </header>
   )
 }
 
