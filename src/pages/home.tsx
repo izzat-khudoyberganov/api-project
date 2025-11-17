@@ -1,7 +1,7 @@
-import { getData } from "@/api/https"
-import { QueryEndpoints } from "@/utils/emdpoints"
-import { QueryKeys } from "@/utils/keys"
-import { useQuery } from "@tanstack/react-query"
+// import { getData } from "@/api/https"
+// import { QueryEndpoints } from "@/utils/emdpoints"
+// import { QueryKeys } from "@/utils/keys"
+// import { useQuery } from "@tanstack/react-query"
 
 const Home = () => {
 
