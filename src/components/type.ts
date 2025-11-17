@@ -3,3 +3,9 @@ export interface NavDataI {
   href: string;
   text: string;
 }
+
+export interface HeaderNavDataI {
+  id: number;
+  text: string;
+  href: string;
+}
