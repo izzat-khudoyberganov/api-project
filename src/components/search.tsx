@@ -8,7 +8,6 @@ const Search = () => {
     setPlaceholderText(text);
   }
 
-
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     // Add your search logic here

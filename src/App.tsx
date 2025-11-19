@@ -20,7 +20,7 @@ function App() {
           Component: Product,
         },
         {
-          path: "categories/:params",
+          path: "categories/:slug",
           Component: Category,
         },
         {

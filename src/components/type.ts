@@ -9,3 +9,19 @@ export interface HeaderNavDataI {
   text: string;
   href: string;
 }
+
+export interface CategoryCardPropsI {
+  name: string;
+  slug: string;
+  image: string;
+}
+
+
+export interface CategoriesDataI {
+  id: number;
+  name: string;
+  slug: string;
+  image: string;
+  creationAt: string;
+  updatedAt: string;
+}

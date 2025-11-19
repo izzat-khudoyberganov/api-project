@@ -4,6 +4,7 @@
 // import { useQuery } from "@tanstack/react-query"
 
 import Banner from "@/components/banner";
+import Categories from "@/components/categories";
 import Search from "@/components/search";
 
 const Home = () => {
@@ -24,6 +25,7 @@ const Home = () => {
     <>
       <Banner />
       <Search />
+      <Categories/>
     </>
   );
 };
