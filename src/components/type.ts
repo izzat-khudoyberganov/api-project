@@ -16,7 +16,6 @@ export interface CategoryCardPropsI {
   image: string;
 }
 
-
 export interface CategoriesDataI {
   id: number;
   name: string;
@@ -24,4 +23,22 @@ export interface CategoriesDataI {
   image: string;
   creationAt: string;
   updatedAt: string;
+}
+
+export interface ProductInfoI {
+  id: number;
+  category: CategoriesDataI;
+  creationAt: string;
+  description: string;
+  images: string[];
+  price: number;
+  slug: string;
+  title: string;
+  updatedAt: string;
+}
+
+export interface ProductCardPropsI {
+  image: string;
+  title: string;
+  price: number;
 }
