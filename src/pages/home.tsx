@@ -5,6 +5,7 @@
 
 import Banner from "@/components/banner";
 import Categories from "@/components/categories";
+import PopularProducts from "@/components/popular-products";
 import Search from "@/components/search";
 
 const Home = () => {
@@ -26,6 +27,8 @@ const Home = () => {
       <Banner />
       <Search />
       <Categories/>
+      <PopularProducts/>
+      <PopularProducts/>
     </>
   );
 };

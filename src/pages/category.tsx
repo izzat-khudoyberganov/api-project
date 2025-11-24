@@ -1,4 +1,4 @@
-import { getData } from "@/api/https";
+import { baseUrl, getData } from "@/api/https";
 import ProductList from "@/components/products-list";
 import type { ProductInfoI } from "@/components/type";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,14 +9,12 @@ import { useParams } from "react-router-dom";
 
 const Category = () => {
   const params = useParams();
-  const {slug} = params;
+  const { slug } = params;
+  console.log(slug);
 
   const { data, isLoading, isError, error } = useQuery<ProductInfoI[]>({
     queryKey: [QueryKeys.products],
-    queryFn: () =>
-      getData(
-        `${import.meta.env.VITE_BASE_URL}${QueryEndpoints.productsSlug}${slug}`
-      ),
+    queryFn: () => getData(`${baseUrl}${QueryEndpoints.productsSlug}${slug}`),
   });
 
   if (isLoading) {
@@ -44,9 +42,7 @@ const Category = () => {
   return (
     <section className="mt-20">
       <div className="container">
-        {
-          Array.isArray(data) && <ProductList data={data}/>
-        }
+        {Array.isArray(data) && <ProductList data={data} />}
       </div>
     </section>
   );
