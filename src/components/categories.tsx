@@ -35,7 +35,7 @@ const Categories = () => {
   }
 
   return (
-    <section className="mt-20">
+    <section className="mt-20" >
       <div className="container">
         <div className="grid grid-cols-3 gap-8">
           {Array.isArray(data) &&

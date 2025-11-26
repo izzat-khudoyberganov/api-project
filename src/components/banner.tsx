@@ -11,7 +11,7 @@ import swiper_img from "../../public/swiper-img.jpg";
 
 function Banner() {
   return (
-    <div className="container">
+    <div className="container" id="category">
       <div className="w-full mt-20 flex justify-between items-center">
         <Carousel className="w-3/5">
           <CarouselContent className="h-full">
