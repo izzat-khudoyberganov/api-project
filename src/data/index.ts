@@ -1,4 +1,5 @@
-import type { HeaderNavDataI, NavDataI } from "@/components/type";
+import type { FooterNavDataI, FooterSocialMediaIcons, NavDataI } from "@/components/type";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 export const NavData: NavDataI[] = [
   {
@@ -18,45 +19,67 @@ export const NavData: NavDataI[] = [
   },
 ];
 
-export const HeaderNavData: HeaderNavDataI[] = [
+export const FooterInformationNavData: FooterNavDataI[] = [
   {
     id: 0,
-    text: "Квадроциклы",
-    href: "categories/avts",
+    href: "#!",
+    text: "О компании",
   },
   {
     id: 1,
-    text: "Катера",
-    href: "categories/boats",
+    href: "#!",
+    text: "Контакты",
   },
   {
     id: 2,
-    text: "Гидроциклы",
-    href: "categories/hydrocycles",
+    href: "#!",
+    text: "Акции",
   },
   {
     id: 3,
-    text: "Лодки",
-    href: "categories/boats-small",
-  },
-  {
-    id: 4,
-    text: "Вездеходы",
-    href: "categories/all-terrain-vehicles",
-  },
-  {
-    id: 5,
-    text: "Снегоходы",
-    href: "categories/snowmobiles",
-  },
-  {
-    id: 6,
-    text: "Двигатели",
-    href: "categories/engines",
-  },
-  {
-    id: 7,
-    text: "Запчасти",
-    href: "categories/spare-parts",
+    href: "#!",
+    text: "Магазины",
   },
 ];
+
+export const FooterECommerceNavData: FooterNavDataI[] = [
+  {
+    id: 0,
+    href: "#!",
+    text: "Доставка и самовывоз",
+  },
+  {
+    id: 1,
+    href: "#!",
+    text: "Оплата",
+  },
+  {
+    id: 2,
+    href: "#!",
+    text: "Возврат-обмен",
+  },
+  {
+    id: 3,
+    href: "#!",
+    text: "Новости",
+  },
+];
+
+export const FooterSocialMediaIconsData: FooterSocialMediaIcons[] = [
+  {
+    id: 0,
+    icon: Instagram
+  },
+  {
+    id: 1,
+    icon: Twitter
+  },
+  {
+    id: 2,
+    icon: Facebook
+  },
+  {
+    id: 3,
+    icon: Youtube
+  }
+]

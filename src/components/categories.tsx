@@ -1,5 +1,3 @@
-import { baseUrl, getData } from "@/api/https";
-import { QueryEndpoints } from "@/utils/endpoints";
 import { QueryKeys } from "@/utils/keys";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "./ui/skeleton";
@@ -9,7 +7,6 @@ import type { CategoriesDataI } from "./type";
 const Categories = () => {
   const { data, isLoading, error, isError } = useQuery<CategoriesDataI[]>({
     queryKey: [QueryKeys.category],
-    queryFn: () => getData(`${baseUrl}${QueryEndpoints.categories}?limit=6`),
   });
 
   if (isLoading) {

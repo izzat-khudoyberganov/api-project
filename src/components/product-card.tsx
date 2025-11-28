@@ -1,14 +1,15 @@
 import { Heart, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
-import { currencyFormatter } from "@/utils/helper";
+import { currencyFormatter, truncateString } from "@/utils/helper";
 import type { ProductCardPropsI } from "./type";
 
 const ProductCard = ({ image, title, price }: ProductCardPropsI) => {
   const currency = currencyFormatter(price);
+  const my_title = truncateString(title, 35)
 
   return (
-    <Card className="w-full rounded-[1px] relative">
+    <Card className="w-full h-[434px] rounded-[1px] relative">
       <CardHeader>
         <Button
           variant="ghost"
@@ -24,7 +25,7 @@ const ProductCard = ({ image, title, price }: ProductCardPropsI) => {
           alt={title}
           className="w-[250px] h-[190px] object-contain"
         />
-        <h2 className="mt-6 font-normal text-lg text-center">{title}</h2>
+        <h2 className="mt-6 font-normal text-lg text-center">{my_title}</h2>
         <span className="font-bold text-3xl block mt-6 text-center">
           {currency}
         </span>

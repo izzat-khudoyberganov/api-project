@@ -1,3 +1,6 @@
+import type { LucideIcon } from "lucide-react";
+
+
 export interface NavDataI {
   id: number;
   href: string;
@@ -9,6 +12,8 @@ export interface HeaderNavDataI {
   text: string;
   href: string;
 }
+
+export interface FooterNavDataI extends HeaderNavDataI {}
 
 export interface CategoryCardPropsI {
   name: string;
@@ -41,4 +46,10 @@ export interface ProductCardPropsI {
   image: string;
   title: string;
   price: number;
+}
+
+
+export interface FooterSocialMediaIcons {
+  id: number,
+  icon: LucideIcon
 }

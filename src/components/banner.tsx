@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import swiper_img from "../../public/swiper-img.jpg";
+import swiper_img from "@/assets/image/swiper-img.jpg";
 
 function Banner() {
   return (

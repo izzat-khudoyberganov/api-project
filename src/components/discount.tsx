@@ -1,5 +1,5 @@
-import img_1 from "../../public/img-1.png";
-import img_2 from "../../public/image-2.png";
+import img_1 from "@/assets/image/img-1.png";
+import img_2 from "@/assets/image/image-2.png";
 
 const Discount = () => {
   return (
