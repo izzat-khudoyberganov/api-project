@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +7,7 @@ import {
 } from "@/components/ui/carousel";
 
 import swiper_img from "@/assets/image/swiper-img.jpg";
+import SuzukiOutboardAd from "./banner-card";
 
 function Banner() {
   return (
@@ -25,18 +25,7 @@ function Banner() {
           <CarouselNext />
         </Carousel>
 
-        <Card className="w-full max-w-sm">
-          <CardContent>
-            <form>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2"></div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">Card</div>
-                </div>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+        <SuzukiOutboardAd/>
       </div>
     </div>
   );

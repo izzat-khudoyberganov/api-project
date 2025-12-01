@@ -43,6 +43,7 @@ export interface ProductInfoI {
 }
 
 export interface ProductCardPropsI {
+  id: number;
   image: string;
   title: string;
   price: number;

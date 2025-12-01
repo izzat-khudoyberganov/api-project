@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { Category, Home, Layout, NotFound, Product } from "./pages";
+import { Category, Home, Layout, NotFound, Product, Products } from "./pages";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
 
@@ -15,14 +15,20 @@ function App() {
           index: true,
           Component: Home,
         },
-        {
-          path: "products/:id",
-          Component: Product,
-        },
+
         {
           path: "categories/:slug",
           Component: Category,
         },
+        {
+          path: "products",
+          Component: Products,
+        },
+        {
+          path: "product/:id",
+          Component: Product,
+        },
+
         {
           path: "*",
           Component: NotFound,

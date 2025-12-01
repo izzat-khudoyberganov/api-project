@@ -13,26 +13,26 @@ import {
   CarouselPrevious,
 } from "./ui/carousel";
 import ProductCard from "./product-card";
-
+import { Link } from "react-router-dom";
 
 const PopularProducts = () => {
   const [querySlug, setQuerySlug] = useState<string>("electronics");
-  const { data,  isError, error } = useQuery<CategoriesDataI[]>({
+  const { data, isError, error } = useQuery<CategoriesDataI[]>({
     queryKey: [QueryKeys.category],
   });
 
-//   if (isLoading) {
-//     return (
-//       <div className="container">
-//         <div className="flex items-center gap-12">
-//           {Array.from({ length: 6 }).map((_, index) => (
-//             <Skeleton key={index} className="w-5 h-3" />
-//           ))}
-//           Loading....
-//         </div>
-//       </div>
-//     );
-//   }
+  //   if (isLoading) {
+  //     return (
+  //       <div className="container">
+  //         <div className="flex items-center gap-12">
+  //           {Array.from({ length: 6 }).map((_, index) => (
+  //             <Skeleton key={index} className="w-5 h-3" />
+  //           ))}
+  //           Loading....
+  //         </div>
+  //       </div>
+  //     );
+  //   }
 
   if (isError) {
     return (
@@ -42,9 +42,7 @@ const PopularProducts = () => {
     );
   }
 
-  const {
-    data: productData,
-  } = useQuery<ProductInfoI[]>({
+  const { data: productData } = useQuery<ProductInfoI[]>({
     queryKey: [QueryKeys.products, querySlug],
     queryFn: () =>
       getData(`${baseUrl}${QueryEndpoints.productsSlug}${querySlug}`),
@@ -78,11 +76,18 @@ const PopularProducts = () => {
                         image={el.images[0]}
                         price={el.price}
                         title={el.title}
+                        id={el.id}
                       />
                     </div>
                   </CarouselItem>
                 ))}
             </CarouselContent>
+            <Link
+              to={`products`}
+              className="mt-10 mx-auto block w-max py-4 px-11 bg-gray-200 font-normal text-base"
+            >
+              Показать еще
+            </Link>
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
