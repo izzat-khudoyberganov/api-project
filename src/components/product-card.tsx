@@ -27,7 +27,7 @@ const ProductCard = ({ image, title, price, id }: ProductCardPropsI) => {
           className="w-[250px] h-[190px] object-contain"
         />
         <Link
-          to={`product/${id}`}
+          to={`../product/${id}`}
           className="mt-6 block hover:text-blue-500 transition-colors font-normal text-lg text-center"
         >
           {my_title}

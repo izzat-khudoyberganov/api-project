@@ -9,29 +9,27 @@ function App() {
   const routes = createBrowserRouter([
     {
       path: "/",
-      Component: Layout,
+      element: <Layout />,
       children: [
-        {
-          index: true,
-          Component: Home,
+        { 
+          index: true, 
+          element: <Home /> 
         },
-
-        {
-          path: "categories/:slug",
-          Component: Category,
+        { 
+          path: "categories/:slug", 
+          element: <Category /> 
         },
-        {
-          path: "products",
-          Component: Products,
+        { 
+          path: "products", 
+          element: <Products /> 
         },
-        {
-          path: "product/:id",
-          Component: Product,
+        { 
+          path: "product/:id", 
+          element: <Product /> 
         },
-
-        {
-          path: "*",
-          Component: NotFound,
+        { 
+          path: "*", 
+          element: <NotFound /> 
         },
       ],
     },

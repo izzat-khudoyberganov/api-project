@@ -83,7 +83,7 @@ const PopularProducts = () => {
                 ))}
             </CarouselContent>
             <Link
-              to={`products`}
+              to='products'
               className="mt-10 mx-auto block w-max py-4 px-11 bg-gray-200 font-normal text-base"
             >
               Показать еще
