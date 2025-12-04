@@ -6,40 +6,40 @@ import "./App.css";
 const queryClient = new QueryClient();
 
 function App() {
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        { 
-          index: true, 
-          element: <Home /> 
+    const routes = createBrowserRouter([
+        {
+            path: "/",
+            element: <Layout />,
+            children: [
+                {
+                    index: true,
+                    element: <Home />,
+                },
+                {
+                    path: "categories/:slug",
+                    element: <Category />,
+                },
+                {
+                    path: "products",
+                    element: <Products />,
+                },
+                {
+                    path: "product/:id",
+                    element: <Product />,
+                },
+                {
+                    path: "*",
+                    element: <NotFound />,
+                },
+            ],
         },
-        { 
-          path: "categories/:slug", 
-          element: <Category /> 
-        },
-        { 
-          path: "products", 
-          element: <Products /> 
-        },
-        { 
-          path: "product/:id", 
-          element: <Product /> 
-        },
-        { 
-          path: "*", 
-          element: <NotFound /> 
-        },
-      ],
-    },
-  ]);
+    ]);
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={routes} />
-    </QueryClientProvider>
-  );
+    return (
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={routes} />
+        </QueryClientProvider>
+    );
 }
 
 export default App;

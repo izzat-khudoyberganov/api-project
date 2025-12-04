@@ -3,34 +3,38 @@ import { QueryEndpoints } from "@/utils/endpoints";
 import { QueryKeys } from "@/utils/keys";
 import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
-import type { CategoriesDataI } from "./type";
 import { Skeleton } from "./ui/skeleton";
 
 const HeaderNav = () => {
-  const { data, isLoading } = useQuery<CategoriesDataI[]>({
+  const { data, isLoading } = useQuery<string[]>({
     queryKey: [QueryKeys.category],
-    queryFn: () => getData(`${baseUrl}${QueryEndpoints.categories}?limit=6`),
+    queryFn: () => getData(`${baseUrl}${QueryEndpoints.categories}`),
   });
 
- if (isLoading) {
-  return <Skeleton className="w-full h-[52px] bg-gray-200"/>
- }
-  
+  const category = data?.slice(0, 9) || []
+
+  if (isLoading) {
+    return <Skeleton className="w-full h-[52px] bg-gray-200" />;
+  }
+
   return (
-    <nav className="flex items-center justify-between bg-gray-200">
-      {Array.isArray(data) && data.map(({ id, name, slug }) => (
-        <NavLink
-          key={id}
-          to={`categories/${slug}`}
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-blue-600 font-bold py-3.5"
-              : "border-none py-3.5"
-          }
-        >
-          {name}
-        </NavLink>
-      ))}
+    <nav className=" bg-gray-200 no-scrollbar">
+      <div className="flex items-center whitespace-nowrap gap-10 px-4">
+        {Array.isArray(category) &&
+          category.map((el) => (
+            <NavLink
+              key={el}
+              to={`categories/${el}`}
+              className={({ isActive }) =>
+                isActive
+                  ? "border-b-2 border-blue-600 font-bold py-3.5 capitalize"
+                  : "border-none py-3.5 capitalize"
+              }
+            >
+              {el}
+            </NavLink>
+          ))}
+      </div>
     </nav>
   );
 };
