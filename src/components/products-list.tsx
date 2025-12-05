@@ -1,15 +1,17 @@
 import ProductCard from "./product-card";
-import type { ProductResponse } from "./type";
+import type { ProductI } from "./type";
 
-const ProductList = ({ data }: { data: ProductResponse }) => {
+const ProductList = ({ data }: { data: ProductI[] }) => {
     return (
         <div className='grid grid-cols-4 gap-8'>
-            {data.products.map((el) => (
+            {Array.isArray(data) && data.map((el) => (
                 <ProductCard
                     image={el.images[0]}
                     price={el.price}
                     title={el.title}
                     id={el.id}
+                    description={el.description}
+                    rating={el.rating}
                 />
             ))}
         </div>

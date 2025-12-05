@@ -16,10 +16,12 @@ import ProductCard from "./product-card";
 import { Link } from "react-router-dom";
 
 const PopularProducts = () => {
-    const [querySlug, setQuerySlug] = useState<string>("electronics");
-    const { data, isError, error } = useQuery<CategoriesDataI[]>({
+    const [querySlug, setQuerySlug] = useState<string>("furniture");
+    const { data, isError, error } = useQuery<string[]>({
         queryKey: [QueryKeys.category],
     });
+
+    const categoryData = data?.slice(0, 7) || []
 
     if (isError) {
         return (
@@ -32,7 +34,7 @@ const PopularProducts = () => {
     const { data: productData } = useQuery<ProductResponse>({
         queryKey: [QueryKeys.products, querySlug],
         queryFn: () =>
-            getData(`${baseUrl}${QueryEndpoints.productsSlug}${querySlug}`),
+            getData(`${baseUrl}${QueryEndpoints.productsByCategory}/${querySlug}`),
     });
 
     console.log(productData, "datatttttt");
@@ -43,15 +45,15 @@ const PopularProducts = () => {
                 <div className='flex flex-col gap-6'>
                     <h2 className='font-bold text-2xl'>Популярные товары</h2>
                     <div className='flex items-center gap-12'>
-                        {Array.isArray(data) &&
-                            data.map((el) => (
+                        {Array.isArray(categoryData) &&
+                            categoryData.map((el) => (
                                 <Button
-                                    key={el.id}
+                                    key={el}
                                     variant='ghost'
                                     size='lg'
-                                    onClick={() => setQuerySlug(el.slug)}
+                                    onClick={() => setQuerySlug(el)}
                                 >
-                                    {el.name}
+                                    {el}
                                 </Button>
                             ))}
                     </div>
@@ -69,6 +71,8 @@ const PopularProducts = () => {
                                                 price={el.price}
                                                 title={el.title}
                                                 id={el.id}
+                                                description={el.description}
+                                                rating={el.rating}
                                             />
                                         </div>
                                     </CarouselItem>

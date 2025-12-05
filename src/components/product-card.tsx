@@ -5,9 +5,19 @@ import { currencyFormatter, truncateString } from "@/utils/helper";
 import type { ProductCardPropsI } from "./type";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ image, title, price, id }: ProductCardPropsI) => {
-  const currency = currencyFormatter(price);
-  const my_title = truncateString(title, 35);
+
+const ProductCard = ({
+  image,
+  title,
+  price,
+  id,
+  description,
+  rating,
+}: ProductCardPropsI) => {
+  const currency = currencyFormatter(price),
+    my_title = truncateString(title, 25),
+    my_description = truncateString(description, 60);
+
 
   return (
     <Card className="w-full h-[434px] rounded-[1px] relative">
@@ -20,18 +30,19 @@ const ProductCard = ({ image, title, price, id }: ProductCardPropsI) => {
           <Heart />
         </Button>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-3">
         <img
           src={image}
           alt={title}
-          className="w-[250px] h-[190px] object-contain"
+          className="w-[250px] h-[190px] object-contain hover:scale-130 transition-transform hover:transition-transform mx-auto"
         />
         <Link
           to={`../product/${id}`}
-          className="mt-6 block hover:text-blue-500 transition-colors font-normal text-lg text-center"
+          className="mt-6 block hover:text-blue-500 transition-colors font-semibold text-xl text-center truncate-text"
         >
           {my_title}
         </Link>
+        <p className="text-gray-600">{my_description}</p>
         <span className="font-bold text-3xl block mt-6 text-center">
           {currency}
         </span>

@@ -13,10 +13,13 @@ const Category = () => {
     console.log(slug);
 
     const { data, isLoading, isError, error } = useQuery<ProductResponse>({
-        queryKey: [QueryKeys.products],
+        queryKey: [QueryKeys.products, slug],
         queryFn: () =>
-            getData(`${baseUrl}${QueryEndpoints.productsSlug}${slug}`),
+            getData(`${baseUrl}${QueryEndpoints.productsByCategory}/${slug}`),
     });
+
+    console.log(data, 'Product by category');
+    
 
     if (isLoading) {
         return (
@@ -43,7 +46,7 @@ const Category = () => {
     return (
         <section className='mt-20'>
             <div className='container'>
-                {Array.isArray(data) && <ProductList data={data} />}
+                {Array.isArray(data?.products) && <ProductList data={data.products} />}
             </div>
         </section>
     );

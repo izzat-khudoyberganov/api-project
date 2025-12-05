@@ -34,6 +34,8 @@ export interface ProductCardPropsI {
     image: string;
     title: string;
     price: number;
+    description: string;
+    rating?: number;
 }
 
 export interface FooterSocialMediaIcons {

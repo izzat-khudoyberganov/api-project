@@ -1,5 +1,5 @@
 export const QueryEndpoints = {
     categories: '/products/category-list',
-    productsSlug: '/products/?categorySlugs=',
+    productsByCategory: '/products/category',
     products: '/products'
 }
