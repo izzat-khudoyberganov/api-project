@@ -12,7 +12,6 @@ const ProductCard = ({
   price,
   id,
   description,
-  rating,
 }: ProductCardPropsI) => {
   const currency = currencyFormatter(price),
     my_title = truncateString(title, 25),

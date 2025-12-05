@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { QueryKeys } from "@/utils/keys";
 import { useQuery } from "@tanstack/react-query";
-import { type CategoriesDataI, type ProductResponse } from "./type";
+import { type ProductResponse } from "./type";
 import { Button } from "./ui/button";
 import { baseUrl, getData } from "@/api/https";
 import { QueryEndpoints } from "@/utils/endpoints";
