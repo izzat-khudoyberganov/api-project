@@ -3,8 +3,8 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { currencyFormatter, truncateString } from "@/utils/helper";
 import type { ProductCardPropsI } from "./type";
+import { StarRating } from "react-flexible-star-rating";
 import { Link } from "react-router-dom";
-
 
 const ProductCard = ({
   image,
@@ -12,12 +12,18 @@ const ProductCard = ({
   price,
   id,
   description,
+  rating,
 }: ProductCardPropsI) => {
   const currency = currencyFormatter(price),
     my_title = truncateString(title, 25),
     my_description = truncateString(description, 60);
 
+  const handleRatingChange = (rating: number) => {
+    // Logs the new rating; resets to 0 if the same rating is clicked again
+    console.log(`New rating: ${rating}`);
+  };
 
+  const new_rating: number = rating ? Math.round(rating) : 0;
   return (
     <Card className="w-full h-[434px] rounded-[1px] relative">
       <CardHeader>
@@ -41,8 +47,16 @@ const ProductCard = ({
         >
           {my_title}
         </Link>
-        <p className="text-gray-600">{my_description}</p>
-        <span className="font-bold text-3xl block mt-6 text-center">
+        <p className="text-gray-600 mb-2 text-center">{my_description}</p>
+        <div className="flex justify-center">
+          <StarRating
+            onRatingChange={handleRatingChange}
+            initialRating={rating ? new_rating : 0}
+            isHalfRatingEnabled={true}
+            dimension={7}
+          />
+        </div>
+        <span className="font-bold text-3xl block mt-2 text-center">
           {currency}
         </span>
       </CardContent>
