@@ -25,7 +25,7 @@ const ProductCard = ({
 
   const new_rating: number = rating ? Math.round(rating) : 0;
   return (
-    <Card className="w-full h-[434px] rounded-[1px] relative">
+    <Card className="w-full h-[434px] rounded-[1px] relative overflow-hidden">
       <CardHeader>
         <Button
           variant="ghost"
@@ -43,7 +43,7 @@ const ProductCard = ({
         />
         <Link
           to={`../product/${id}`}
-          className="mt-6 block hover:text-blue-500 transition-colors font-semibold text-xl text-center truncate-text"
+          className="mt-6 block hover:text-blue-500 transition-colors font-semibold text-xl text-center truncate-title"
         >
           {my_title}
         </Link>

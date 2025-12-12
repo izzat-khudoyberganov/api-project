@@ -3,13 +3,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper/types";
 
-const ProductSwiper = ({
-  thumbnail,
-  images,
-}: {
+interface ProductSwiperPropsI {
   thumbnail: string;
   images: string[];
-}) => {
+}
+
+const ProductSwiper = ({ thumbnail, images }: ProductSwiperPropsI) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<
     string | SwiperType | null | undefined
   >(null);
