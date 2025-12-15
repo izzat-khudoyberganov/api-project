@@ -1,44 +1,57 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import CartItem from "../cart-item";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
 
-function CartModal({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+function CartModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const navigate = useNavigate();
+
+  function navigateToProducts(path: string): void {
+    onClose();
+    navigate(path);
+  }
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <form>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Cart</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4"></div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </form>
+      <DialogContent className="sm:max-w-[425px] md:max-w-6/12 max-h-1/2 overflow-y-auto">
+        <DialogHeader className="border-b-2 pb-4">
+          <DialogTitle className="text-3xl font-bold">
+            Favourite products
+          </DialogTitle>
+        </DialogHeader>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <CartItem key={i} />
+        ))}
+        <DialogFooter>
+          <div className="flex items-end justify-between w-full mt-10">
+            <div className="flex flex-col gap-4">
+              <p className="text-3xl font-bold">Итого: 66 000₽</p>
+              <Button
+                onClick={() => navigateToProducts("/")}
+                variant={"default"}
+                className="px-16 py-8 text-xl"
+              >
+                Оформить заказ
+              </Button>
+            </div>
+            <Button
+              variant={"outline"}
+              className="px-16 py-8 text-xl"
+              onClick={() => navigateToProducts("/products")}
+            >
+              Продолжить покупки
+            </Button>
+          </div>
+        </DialogFooter>
+      </DialogContent>
     </Dialog>
   );
 }
 
-
-export default CartModal
+export default CartModal;
