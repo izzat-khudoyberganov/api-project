@@ -8,7 +8,7 @@ const CategoryCard = ({ name, slug }: CategoryCardPropsI) => {
                 <h2 className='font-bold text-2xl group-hover:text-[rgba(28,98,205,1)]'>
                     {name}
                 </h2>
-                <Link className='text-gray-400' to={`categories/${slug}`}>
+                <Link className='text-gray-400' to={slug}>
                     Подробее {" >"}
                 </Link>
             </div>

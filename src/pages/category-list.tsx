@@ -1,18 +1,15 @@
+import { baseUrl, getData } from "@/api/https";
+import CategoryCard from "@/components/category-card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { QueryEndpoints } from "@/utils/endpoints";
 import { QueryKeys } from "@/utils/keys";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "./ui/skeleton";
-import { baseUrl, getData } from "@/api/https";
-import { QueryEndpoints } from "@/utils/endpoints";
-import CategoryCard from "./category-card";
-import { Link } from "react-router-dom";
 
-const Categories = () => {
+const CategoryList = () => {
   const { data, isLoading, error, isError } = useQuery<string[]>({
     queryKey: [QueryKeys.category],
     queryFn: () => getData(`${baseUrl}${QueryEndpoints.categories}`),
   });
-
-  const category: string[] = data?.slice(0, 6) ?? [];
 
   if (isLoading) {
     return (
@@ -40,18 +37,12 @@ const Categories = () => {
     <section className="mt-20">
       <div className="container">
         <div className="grid grid-cols-3 gap-8">
-          {Array.isArray(category) &&
-            category.map((el) => <CategoryCard key={el} name={el} slug={`categories/${el}`} />)}
+          {Array.isArray(data) &&
+            data.map((el) => <CategoryCard key={el} name={el} slug={`${el}`} />)}
         </div>
-        <Link
-          to="categories"
-          className="mt-10 mx-auto block w-max py-4 px-11 bg-gray-200 font-normal text-base"
-        >
-          Показать еще
-        </Link>
       </div>
     </section>
   );
 };
 
-export default Categories;
+export default CategoryList;

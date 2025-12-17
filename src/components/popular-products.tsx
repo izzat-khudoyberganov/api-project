@@ -37,8 +37,6 @@ const PopularProducts = () => {
             getData(`${baseUrl}${QueryEndpoints.productsByCategory}/${querySlug}`),
     });
 
-    console.log(productData, "datatttttt");
-
     return (
         <section className='mt-20'>
             <div className='container'>
