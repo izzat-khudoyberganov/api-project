@@ -8,6 +8,7 @@ import { useReducer } from "react";
 import { myReucer } from "@/store/store";
 import { ADD_TO_CART, ADD_TO_LIKE } from "@/store/type";
 import type { ProductCardPropsI } from "./type";
+import { toast } from "sonner";
 
 const ProductCard = ({
   image,
@@ -33,6 +34,22 @@ const ProductCard = ({
     console.log(`New rating: ${rating}`);
   };
 
+  function addToLike() {
+    dispatch({ type: ADD_TO_LIKE });
+    toast.success("Product has been added favourite", {
+      duration: 2000,
+      position: "top-center",
+    });
+  }
+
+  function addToCart() {
+    dispatch({ type: ADD_TO_CART });
+    toast.success("Product has been added cart", {
+      duration: 2000,
+      position: "top-center",
+    });
+  }
+
   const new_rating: number = rating ? Math.round(rating) : 0;
   return (
     <Card className="w-full h-[434px] rounded-[1px] relative overflow-hidden">
@@ -41,7 +58,7 @@ const ProductCard = ({
           variant="ghost"
           size="icon-lg"
           className="ml-auto absolute top-3 right-5"
-          onClick={() => dispatch({ type: ADD_TO_LIKE })}
+          onClick={addToLike}
         >
           <Heart />
         </Button>
@@ -76,7 +93,7 @@ const ProductCard = ({
           variant="ghost"
           size="icon-lg"
           className="absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 "
-          onClick={() => dispatch({ type: ADD_TO_CART })}
+          onClick={addToCart}
         >
           <ShoppingCart className="text-white transition-colors group-hover:text-black" />
         </Button>
