@@ -6,6 +6,7 @@ import { currencyFormatter } from "@/utils/helper";
 
 const CartItem = () => {
   const [count, setCount] = useState<number>(1);
+  
   const price = currencyFormatter(3000);
   function increment(): void {
     setCount((prev) => prev + 1);

@@ -2,9 +2,12 @@ import { Heart, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { currencyFormatter, truncateString } from "@/utils/helper";
-import type { ProductCardPropsI } from "./type";
 import { StarRating } from "react-flexible-star-rating";
 import { Link } from "react-router-dom";
+import { useReducer } from "react";
+import { myReucer } from "@/store/store";
+import { ADD_TO_CART, ADD_TO_LIKE } from "@/store/type";
+import type { ProductCardPropsI } from "./type";
 
 const ProductCard = ({
   image,
@@ -18,8 +21,15 @@ const ProductCard = ({
     my_title = truncateString(title, 25),
     my_description = truncateString(description, 60);
 
+  const [state, dispatch] = useReducer(myReucer, {
+    image,
+    title,
+    price,
+    quantity: 1,
+  });
+  console.log(state);
+
   const handleRatingChange = (rating: number) => {
-    // Logs the new rating; resets to 0 if the same rating is clicked again
     console.log(`New rating: ${rating}`);
   };
 
@@ -31,6 +41,7 @@ const ProductCard = ({
           variant="ghost"
           size="icon-lg"
           className="ml-auto absolute top-3 right-5"
+          onClick={() => dispatch({ type: ADD_TO_LIKE })}
         >
           <Heart />
         </Button>
@@ -65,6 +76,7 @@ const ProductCard = ({
           variant="ghost"
           size="icon-lg"
           className="absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 "
+          onClick={() => dispatch({ type: ADD_TO_CART })}
         >
           <ShoppingCart className="text-white transition-colors group-hover:text-black" />
         </Button>
