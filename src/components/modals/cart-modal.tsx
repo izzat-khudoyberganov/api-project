@@ -8,6 +8,8 @@ import {
 import CartItem from "../cart-item";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
+import { useContext } from "react";
+import { MainContext } from "@/context/useMainContext";
 
 function CartModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ function CartModal({ open, onClose }: { open: boolean; onClose: () => void }) {
     navigate(path);
   }
 
+  const {cartItems} = useContext(MainContext)
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] md:max-w-6/12 max-h-1/2 overflow-y-auto">
@@ -25,8 +29,8 @@ function CartModal({ open, onClose }: { open: boolean; onClose: () => void }) {
             Favourite products
           </DialogTitle>
         </DialogHeader>
-        {Array.from({ length: 6 }).map((_, i) => (
-          <CartItem key={i} />
+        {cartItems.map((el) => (
+          <CartItem key={el.id} {...el} />
         ))}
         <DialogFooter>
           <div className="flex items-end justify-between w-full mt-10">

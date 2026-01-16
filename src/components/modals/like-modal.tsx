@@ -5,11 +5,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import CartItem from "../cart-item";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { MainContext } from "@/context/useMainContext";
+import LikeItem from "../like-item";
 
 
 function LikeModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { likedItems } = useContext(MainContext);
   
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -18,8 +21,8 @@ function LikeModal({ open, onClose }: { open: boolean; onClose: () => void }) {
             <DialogTitle className="text-3xl font-bold">Favourite products</DialogTitle>
           </DialogHeader>
           {
-            Array.from({length: 6}).map((_, i) => (
-              <CartItem key={i}/>
+            likedItems.map((item) => (
+              <LikeItem key={item.id} {...item} />
             ))
           }
           <DialogFooter>

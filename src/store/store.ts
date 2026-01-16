@@ -1,38 +1,91 @@
 import {
+  ADD_ONE,
   ADD_TO_CART,
   ADD_TO_LIKE,
   REMOVE_FROM_CART,
   REMOVE_FROM_LIKE,
+  REMOVE_ONE,
 } from "./type";
 
 type State = {
-    image: string,
-    title: string,
-    price: number,
-    quantity: number
-}
+  image: string;
+  title: string;
+  price: number;
+  quantity: number;
+};
 
 type Action =
-  | { type: "ADD_TO_CART" }
-  | { type: "ADD_TO_LIKE" }
-  | { type: "REMOVE_FROM_CART" }
-  | { type: "REMOVE_FROM_LIKE", payload: number }
+  | { type: "ADD_TO_CART"; payload: any }
+  | { type: "ADD_TO_LIKE"; payload: any }
+  | { type: "REMOVE_FROM_CART"; payload: any }
+  | { type: "REMOVE_FROM_LIKE"; payload: any }
+  | { type: "ADD_ONE"; payload: any }
+  | { type: "REMOVE_ONE"; payload: any };
 
-export function myReucer(state: State, action: Action):State {
+export function myReucer(state: any, action: Action): State {
   switch (action.type) {
     case ADD_TO_LIKE:
-      console.log("Add to like", state);
-      break;
+      return {
+        ...state,
+        likedItems: [
+          ...state.likedItems,
+          {
+            ...action.payload,
+            quantity: 1,
+          },
+        ],
+      };
     case REMOVE_FROM_LIKE:
-      console.log("Remove from like");
-      break;
+      return {
+        ...state,
+        likedItems: state.likedItems.filter(
+          (el: any) => el.id !== action.payload
+        ),
+      };
     case ADD_TO_CART:
-      console.log("Add to cart");
-      break;
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems,
+          {
+            ...action.payload,
+            quantity: 1,
+          },
+        ],
+      };
     case REMOVE_FROM_CART:
-      console.log("Remove from cart");
-      break;
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (el: any) => el.id !== action.payload
+        ),
+      };
+    case ADD_ONE:
+      return {
+        ...state,
+        cartItems: state.cartItems.map((el: any) =>
+          el.id == action.payload
+            ? {
+                ...el,
+                quantity: el.quantity + 1,
+              }
+            : el
+        ),
+      };
+    case REMOVE_ONE:
+      return {
+        ...state,
+        cartItems: state.cartItems.map((el: any) =>
+          el.id == action.payload
+            ? {
+                ...el,
+                quantity: el.quantity - 1,
+              }
+            : el
+        ),
+      };
     default:
-      console.log("Undefined action type");
+      console.log(state);
+      return state;
   }
 }

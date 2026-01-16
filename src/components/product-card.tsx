@@ -4,11 +4,9 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { currencyFormatter, truncateString } from "@/utils/helper";
 import { StarRating } from "react-flexible-star-rating";
 import { Link } from "react-router-dom";
-import { useReducer } from "react";
-import { myReucer } from "@/store/store";
-import { ADD_TO_CART, ADD_TO_LIKE } from "@/store/type";
 import type { ProductCardPropsI } from "./type";
-import { toast } from "sonner";
+import { useContext } from "react";
+import { MainContext } from "@/context/useMainContext";
 
 const ProductCard = ({
   image,
@@ -22,43 +20,41 @@ const ProductCard = ({
     my_title = truncateString(title, 25),
     my_description = truncateString(description, 60);
 
-  const [state, dispatch] = useReducer(myReucer, {
-    image,
-    title,
-    price,
-    quantity: 1,
-  });
-  console.log(state);
-
   const handleRatingChange = (rating: number) => {
     console.log(`New rating: ${rating}`);
   };
 
-  function addToLike() {
-    dispatch({ type: ADD_TO_LIKE });
-    toast.success("Product has been added favourite", {
-      duration: 2000,
-      position: "top-center",
-    });
-  }
+  const {
+    addToCart,
+    addToLike,
+    likedItems,
+    cartItems,
+    removeFromCart,
+    removeFromLike,
+  } = useContext(MainContext);
 
-  function addToCart() {
-    dispatch({ type: ADD_TO_CART });
-    toast.success("Product has been added cart", {
-      duration: 2000,
-      position: "top-center",
-    });
-  }
-
+  const isLiked = likedItems.some((item) => item.id === id);
+  const isInCart = cartItems.some((item) => item.id === id);
+  const isLikedStyle = isLiked ? "destructive" : "ghost";
+  const isCartStyle = isInCart
+    ? "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-transparent border border-blue-400 group transition-colors px-8 "
+    : "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 ";
+  const iconStyle = isInCart
+    ? "text-blue-400 transition-colors"
+    : "text-white transition-colors group-hover:text-blue-400";
   const new_rating: number = rating ? Math.round(rating) : 0;
   return (
     <Card className="w-full h-[434px] rounded-[1px] relative overflow-hidden">
       <CardHeader>
         <Button
-          variant="ghost"
+          variant={isLikedStyle}
           size="icon-lg"
           className="ml-auto absolute top-3 right-5"
-          onClick={addToLike}
+          onClick={() =>
+            isLiked
+              ? removeFromLike(id)
+              : addToLike({ image, title, price, id })
+          }
         >
           <Heart />
         </Button>
@@ -92,10 +88,14 @@ const ProductCard = ({
         <Button
           variant="ghost"
           size="icon-lg"
-          className="absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 "
-          onClick={addToCart}
+          className={isCartStyle}
+          onClick={() =>
+            isInCart
+              ? removeFromCart(id)
+              : addToCart({ image, title, price, id })
+          }
         >
-          <ShoppingCart className="text-white transition-colors group-hover:text-black" />
+          <ShoppingCart className={iconStyle} />
         </Button>
       </CardFooter>
     </Card>
