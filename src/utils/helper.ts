@@ -1,7 +1,8 @@
 export function currencyFormatter(currency: number): string {
   return currency.toLocaleString('en-US', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'USD',
+    maximumFractionDigits: 1
 });
 }
 

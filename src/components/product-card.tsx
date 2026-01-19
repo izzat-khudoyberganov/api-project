@@ -35,7 +35,9 @@ const ProductCard = ({
 
   const isLiked = likedItems.some((item) => item.id === id);
   const isInCart = cartItems.some((item) => item.id === id);
+
   const isLikedStyle = isLiked ? "destructive" : "ghost";
+  
   const isCartStyle = isInCart
     ? "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-transparent border border-blue-400 group transition-colors px-8 "
     : "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 ";
