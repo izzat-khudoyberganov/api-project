@@ -4,8 +4,8 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { currencyFormatter, truncateString } from "@/utils/helper";
 import { StarRating } from "react-flexible-star-rating";
 import { Link } from "react-router-dom";
-import type { ProductCardPropsI } from "./type";
-import { useContext } from "react";
+import type { ProductCardPropsI } from "@/types";
+import { useContext, useMemo } from "react";
 import { MainContext } from "@/context/useMainContext";
 
 const ProductCard = ({
@@ -33,29 +33,31 @@ const ProductCard = ({
     removeFromLike,
   } = useContext(MainContext);
 
-  const isLiked = likedItems.some((item) => item.id === id);
-  const isInCart = cartItems.some((item) => item.id === id);
-
-  const isLikedStyle = isLiked ? "destructive" : "ghost";
-  
-  const isCartStyle = isInCart
-    ? "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-transparent border border-blue-400 group transition-colors px-8 "
-    : "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 ";
-  const iconStyle = isInCart
-    ? "text-blue-400 transition-colors"
-    : "text-white transition-colors group-hover:text-blue-400";
+  const productState = useMemo(() => {
+    const isLiked = likedItems.some((item) => item.id === id);
+    const isInCart = cartItems.some((item) => item.id === id);
+    const isLikedStyle = isLiked ? "destructive" as const : "ghost" as const;
+    const isCartStyle = isInCart
+      ? "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-transparent border border-blue-400 group transition-colors px-8 "
+      : "absolute bottom-0 right-0 rounded-none rounded-tl-2xl bg-[rgba(28,98,205,1)] group transition-colors px-8 ";
+    const iconStyle = isInCart
+      ? "text-blue-400 transition-colors"
+      : "text-white transition-colors group-hover:text-blue-400";
+    
+    return { isLiked, isInCart, isLikedStyle, isCartStyle, iconStyle };
+  }, [likedItems, cartItems, id]);
   const new_rating: number = rating ? Math.round(rating) : 0;
   return (
     <Card className="w-full h-[434px] rounded-[1px] relative overflow-hidden">
       <CardHeader>
         <Button
-          variant={isLikedStyle}
+          variant={productState.isLikedStyle}
           size="icon-lg"
           className="ml-auto absolute top-3 right-5"
           onClick={() =>
-            isLiked
+            productState.isLiked
               ? removeFromLike(id)
-              : addToLike({ image, title, price, id })
+              : addToLike({ image, title, price, id, description })
           }
         >
           <Heart />
@@ -90,14 +92,14 @@ const ProductCard = ({
         <Button
           variant="ghost"
           size="icon-lg"
-          className={isCartStyle}
+          className={productState.iconStyle}
           onClick={() =>
-            isInCart
+            productState.isInCart
               ? removeFromCart(id)
-              : addToCart({ image, title, price, id })
+              : addToCart({ image, title, price, id, description })
           }
         >
-          <ShoppingCart className={iconStyle} />
+          <ShoppingCart className={productState.iconStyle} />
         </Button>
       </CardFooter>
     </Card>

@@ -4,6 +4,7 @@ import { Heart, MapPin, ShoppingCart, User } from "lucide-react";
 import { NavData } from "@/data";
 import { Button } from "./ui/button";
 import { CartModal, LikeModal, UserModal } from "./modals";
+import { ThemeToggle } from "./ui/theme-toggle";
 
 import { Icons } from "@/assets/icon";
 import { Badge } from "./ui/badge";
@@ -59,6 +60,7 @@ const HeaderTop = () => {
         </div>
 
         <div className="flex items-center justify-between gap-3">
+          <ThemeToggle />
           <div className="relative">
             {likedItemsLenght > 0 && (
               <Badge className="absolute -top-2 -right-2" variant="destructive">

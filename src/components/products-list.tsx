@@ -1,5 +1,5 @@
 import ProductCard from "./product-card";
-import type { ProductI } from "./type";
+import type { ProductI } from "@/types";
 
 const ProductList = ({ data }: { data: ProductI[] }) => {
     return (

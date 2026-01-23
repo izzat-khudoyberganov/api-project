@@ -1,33 +1,19 @@
-import { myReucer } from "@/store/store";
-import { ADD_TO_CART, ADD_TO_LIKE } from "@/store/type";
-import { createContext, useEffect, useReducer } from "react";
+import { cartReducer } from "@/store/reducer";
+import type { MainContextType, StoreState, CartItem, LikedItem, ProductCardPropsI } from "@/types";
+import { createContext, useEffect, useReducer, useCallback } from "react";
 import { toast } from "sonner";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { STORAGE_KEYS } from "@/utils/constants";
 
-type ProductT = {
-    title: string;
-    price: number,
-    image: string,
-    id: number,
-    quantity?: number
-}
-
-type LikedProductT = {
-    title: string;
-    price: number,
-    image: string,
-    id: number,
-    isInCart?: boolean
-}
-
-export const MainContext = createContext({
-  cartItems: [] as ProductT[],
-  likedItems: [] as LikedProductT[],
-  addToCart: (_item: ProductT) => {},
-  addToLike: (_item: LikedProductT) => {},
-  removeFromCart: (_itemId: number) => {},
-  removeFromLike: (_itemId: number) => {},
-  addOne: (_itemId: number) => {},
-  removeOne: (_itemId: number) => {},
+export const MainContext = createContext<MainContextType>({
+  cartItems: [],
+  likedItems: [],
+  addToCart: () => {},
+  addToLike: () => {},
+  removeFromCart: () => {},
+  removeFromLike: () => {},
+  addOne: () => {},
+  removeOne: () => {},
 });
 
 export function MainContextProvider({
@@ -35,74 +21,74 @@ export function MainContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const initialState = {
-    cartItems: JSON.parse(localStorage.getItem("cartItems") || "[]") as any[],
-    likedItems: JSON.parse(localStorage.getItem("likedItems") || "[]") as any[],
-  };
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(STORAGE_KEYS.CART_ITEMS, []);
+  const [likedItems, setLikedItems] = useLocalStorage<LikedItem[]>(STORAGE_KEYS.LIKED_ITEMS, []);
 
-  const [state, dispatch] = useReducer(myReucer, initialState);
+  const state: StoreState = { cartItems, likedItems };
+  
+  const [storeState, dispatch] = useReducer(cartReducer, state);
 
-  function addToCart(item: any) {
-    dispatch({ type: ADD_TO_CART, payload: item });
+  const addToCart = useCallback((item: ProductCardPropsI) => {
+    dispatch({ type: "ADD_TO_CART", payload: item });
     toast.success("Added to cart!", {
       position: "top-right",
       duration: 2000,
     });
-  }
+  }, []);
 
-  function addToLike(item: any) {
-    dispatch({ type: ADD_TO_LIKE, payload: item });
+  const addToLike = useCallback((item: ProductCardPropsI) => {
+    dispatch({ type: "ADD_TO_LIKE", payload: item });
     toast.success("Added to liked items!", {
       position: "top-right",
       duration: 2000,
     });
-  }
+  }, []);
 
-  function removeFromCart(itemId: number) {
+  const removeFromCart = useCallback((itemId: number) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: itemId });
     toast.success("Removed from cart", {
       position: "top-right",
       duration: 2000,
     });
-  }
+  }, []);
 
-  function removeFromLike(itemId: number) {
+  const removeFromLike = useCallback((itemId: number) => {
     dispatch({ type: "REMOVE_FROM_LIKE", payload: itemId });
     toast.success("Removed from liked items!", {
       position: "top-right",
       duration: 2000,
     });
-  }
+  }, []);
 
-  function addOne(itemId: number) {
+  const addOne = useCallback((itemId: number) => {
     dispatch({ type: "ADD_ONE", payload: itemId });
-  }
+  }, []);
 
-  function removeOne(itemId: number) {
+  const removeOne = useCallback((itemId: number) => {
     dispatch({ type: "REMOVE_ONE", payload: itemId });
-  }
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-  }, [state.cartItems]);
+    setCartItems(storeState.cartItems);
+  }, [storeState.cartItems, setCartItems]);
 
   useEffect(() => {
-    localStorage.setItem("likedItems", JSON.stringify(state.likedItems));
-  }, [state.likedItems]);
+    setLikedItems(storeState.likedItems);
+  }, [storeState.likedItems, setLikedItems]);
+
+  const contextValue: MainContextType = {
+    cartItems: storeState.cartItems,
+    likedItems: storeState.likedItems,
+    addToCart,
+    addToLike,
+    removeFromCart,
+    removeFromLike,
+    addOne,
+    removeOne,
+  };
 
   return (
-    <MainContext.Provider
-      value={{
-        cartItems: state.cartItems,
-        likedItems: state.likedItems,
-        addToCart,
-        addToLike,
-        removeFromCart,
-        removeFromLike,
-        addOne,
-        removeOne,
-      }}
-    >
+    <MainContext.Provider value={contextValue}>
       {children}
     </MainContext.Provider>
   );

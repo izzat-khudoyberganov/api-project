@@ -33,7 +33,7 @@ const LikeItem  = ({
           <div className="flex flex-col justify-between h-28">
             <h2 className="font-medium text-2xl">{title}</h2>
             <div className="flex gap-2 items-center">
-              <Button onClick={() => isInCart ? removeFromCart(id) : addToCart({image, title, price, id})}>
+              <Button onClick={() => isInCart ? removeFromCart(id) : addToCart({image, title, price, id, description: ''})}>
                 {isInCart ? "Remove from Cart" : "Add to Cart"}
               </Button>
             </div>

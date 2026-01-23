@@ -17,6 +17,7 @@ const SuzukiOutboardAd = () => {
           <span className="text-sm text-gray-400 line-through">225 000 Р</span>
         </div>
       </div>
+      
 
       {/* Product Image and SUZUKI logo (Mockup) */}
       <div className="flex-grow flex items-center justify-center p-4 relative">

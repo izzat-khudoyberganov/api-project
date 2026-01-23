@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { CategoryCardPropsI } from "./type";
+import type { CategoryCardPropsI } from "@/types";
 
 const CategoryCard = ({ name, slug }: CategoryCardPropsI) => {
     return (
